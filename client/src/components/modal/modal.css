@@ -1,0 +1,24 @@
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgb(116 125 136 / 85%);
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+}
+
+.modal:target {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal > div {
+    border-radius: 20px;
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    padding: 15px 20px;
+}
