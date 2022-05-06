@@ -8,12 +8,15 @@ const handleChangeValues = (() => {
     console.log()
 });
 
+
 const handleClose = () => {
-    props.closeModal(false);
+    props.setIsModalVisible(false);
+    
 };
 
     return <div className='modal' onClick={handleClose}>
                 <div className='container--modal'>
+
                     <h1>{props.name}</h1>
                     <input 
                         type='text' 

@@ -6,6 +6,11 @@ import Modal from "../modal/modal";
 export default function Card(props) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
+    console.log(isModalVisible);
+
+    const handleClickCard = () => {
+        setIsModalVisible(true);
+    };
 
     return <div className="card--body">
         <div className='card--container'>
@@ -13,8 +18,10 @@ export default function Card(props) {
         <p className='card--cost'>{props.cost}</p>
         <p className='card--category'>{props.category}</p>
         <div className='btn--group'>
-            <a className='btn' onClick={() => setIsModalVisible(true)} ></a>
-            {isModalVisible ? <Modal closeModal={props.isModalVisible}  
+            <a className='btn' onClick={handleClickCard} ></a>
+            {isModalVisible ? <Modal 
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}  
             name={props.name}
             cost={props.cost}
             category={props.category}
