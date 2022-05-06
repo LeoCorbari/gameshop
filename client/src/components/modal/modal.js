@@ -26,6 +26,15 @@ const handleEditGame = () => {
     handleClose();
 };
 
+const handleDeleteGame = () => {
+
+    console.log(editValues);
+
+    Axios.delete(`http://localhost:3001/delete/${editValues.id}`);
+
+    handleClose();
+};
+
 const handleClose = () => {
     props.setIsModalVisible(false);
     
@@ -66,7 +75,11 @@ const handleChangeValues = (value) => {
                         className='register--input'
                         onChange={handleChangeValues}
                         />
-                        <button className='register--button' onClick={handleEditGame}>Send</button>
+                        <div className='group--button' >
+                            <button className='register--button' onClick={handleEditGame}>Send</button>
+                            <button className='register--button' onClick={handleDeleteGame}>Cancel</button>
+                        </div>
+                        
                 </div>
             </div>
 

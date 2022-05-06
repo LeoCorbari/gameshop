@@ -36,7 +36,7 @@
     width: 100px;
     background: url("../public/logo.png");
     margin: auto;
-    border-radius: 50%;
+    border-radius: 15px;
     box-sizing: border-box;
     box-shadow: 7px 7px 10px #cbced1, -7px -7px 10px white;
 }
