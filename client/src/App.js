@@ -31,6 +31,8 @@ function App() {
     });
   }, []);
 
+  console.log(listGames);
+
   return (
     <div>
     <div className='app--container'>
@@ -72,7 +74,7 @@ function App() {
           key={value.id} 
           listCard={listGames} 
           setListCard={setListGames}
-          id={value.id}
+          id={value.idgame}
           name={value.name}
           cost={value.cost}
           category={value.category}

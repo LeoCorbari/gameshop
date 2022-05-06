@@ -27,6 +27,7 @@ export default function Card(props) {
             category={props.category}
             listCard={props.listCard}
             setListCard={props.setListCard}
+            id={props.id}
             />: null}
             <a className='btn'></a>   
         </div>

@@ -37,6 +37,23 @@ app.get('/getCards', (req, res) =>{
     });
 });
 
+app.put('/edit', (req, res) => {
+
+    const { id } = req.body;
+    const { name } = req.body;
+    const { cost } = req.body;
+    const { category } = req.body;
+
+    console.log(id, name, cost, category);
+
+    let sql = "UPDATE games SET name = ?, cost = ?, category = ? WHERE idgame = ?";
+
+    db.query(sql, [name, cost, category, id], (err, result) => {
+        if(err) console.log(err);
+        else res.send(result);
+    });
+});
+
 app.listen(3001, () => {
     console.log("Rodando servidor na porta 3001");
 });

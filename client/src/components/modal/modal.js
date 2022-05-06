@@ -1,26 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
+import Axios from 'axios'
 
 import "./modal.css";
 
 export default function Modal(props) {
 
-const handleChangeValues = (() => {
-    console.log()
+const [editValues, setEditValues] = useState({
+    id: props.id,
+    name: props.name,
+    cost: props.cost,
+    category: props.category
 });
 
+const handleEditGame = () => {
+
+    console.log(editValues);
+
+    Axios.put("http://localhost:3001/edit", {
+        id: editValues.id,
+        name: editValues.name,
+        cost: editValues.cost,
+        category: editValues.category
+    });
+
+    handleClose();
+};
 
 const handleClose = () => {
     props.setIsModalVisible(false);
     
 };
 
-    return <div className='modal' onClick={handleClose}>
+const handleChangeValues = (value) => {
+    setEditValues(prevValues => ({
+        ...prevValues,
+        [value.target.id]: value.target.value
+    }));
+};
+
+    return <div className='modal'>
                 <div className='container--modal'>
 
                     <h1>{props.name}</h1>
                     <input 
                         type='text' 
-                        name='name' 
+                        id='name' 
                         placeholder='name'
                         className='register--input'
                         defaultValue={props.name}
@@ -28,7 +52,7 @@ const handleClose = () => {
                         />
                         <input 
                         type='text' 
-                        name='cost' 
+                        id='cost' 
                         placeholder='cost' 
                         className='register--input'
                         defaultValue={props.cost}
@@ -36,13 +60,13 @@ const handleClose = () => {
                         />
                         <input 
                         type='text' 
-                        name='category' 
+                        id='category' 
                         placeholder='category' 
                         defaultValue={props.category}
                         className='register--input'
                         onChange={handleChangeValues}
                         />
-                        <button className='register--button'>Send</button>
+                        <button className='register--button' onClick={handleEditGame}>Send</button>
                 </div>
             </div>
 
