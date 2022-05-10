@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Axios from "axios";
 import Card from "../../components/cards/card";
@@ -35,49 +35,49 @@ function Home() {
 
   return (
     <div>
-    <div className='home--container'>
-      <div className='register--container'>
-        <div className='logo'></div>
-        <h1 className='register--title'>Game Shop</h1>
+      <div className='home--container'>
+        <div className='register--container'>
+          <div className='logo'></div>
+          <h1 className='register--title'>Game Shop</h1>
 
-        <input 
-        type='text' 
-        name='name' 
-        placeholder='name' 
-        className='register--input'
-        onChange={handleChangeValues}
-        />
-        <input 
-        type='text' 
-        name='cost' 
-        placeholder='cost' 
-        className='register--input'
-        onChange={handleChangeValues}
-        />
-        <input 
-        type='text' 
-        name='category' 
-        placeholder='category' 
-        className='register--input'
-        onChange={handleChangeValues}
-        />
+          <input
+            type='text'
+            name='name'
+            placeholder='name'
+            className='register--input'
+            onChange={handleChangeValues}
+          />
+          <input
+            type='text'
+            name='cost'
+            placeholder='cost'
+            className='register--input'
+            onChange={handleChangeValues}
+          />
+          <input
+            type='text'
+            name='category'
+            placeholder='category'
+            className='register--input'
+            onChange={handleChangeValues}
+          />
 
-        <button className='register--button' onClick={() => handleClickButton()} >Send</button>
+          <button className='register--button' onClick={() => handleClickButton()} >Send</button>
 
-        
 
+
+        </div>
       </div>
-    </div>
-    <div className='card--content--grid'>
-    {typeof listGames !== "undefined" && listGames.map((value) => {
-          return <Card 
-          key={value.id} 
-          listCard={listGames} 
-          setListCard={setListGames}
-          id={value.idgame}
-          name={value.name}
-          cost={value.cost}
-          category={value.category}
+      <div className='card--content--grid'>
+        {typeof listGames !== "undefined" && listGames.map((value) => {
+          return <Card
+            key={value.id}
+            listCard={listGames}
+            setListCard={setListGames}
+            id={value.idgame}
+            name={value.name}
+            cost={value.cost}
+            category={value.category}
           ></Card>
         })}
       </div>
