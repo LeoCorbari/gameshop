@@ -64,8 +64,6 @@ function Home() {
 
           <button className='register--button' onClick={() => handleClickButton()} >Send</button>
 
-
-
         </div>
       </div>
       <div className='card--content--grid'>

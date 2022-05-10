@@ -14,6 +14,28 @@ const db = mysql.createPool({
 app.use(cors());
 app.use(express.json());
 
+app.post('/login', (req,res) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    console.log(email, password);
+
+    let sql = "SELECT * FROM users WHERE email = ? AND password = ?";
+
+    db.query(sql, [email, password], (err, result) => {
+        if (err) {
+            res.send(err);
+        }
+        if (result.length > 0) {
+            res.send({login: true});
+        } else {
+            res.send({login: false});
+        }
+        
+    });
+});
+
 app.post('/register', (req, res) => {
     const { name } = req.body;
     const { cost } = req.body;

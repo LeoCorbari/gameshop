@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import './Login.css';
 
 export default function Login() {
 
+  const navigate = useNavigate();
+
   const [values, setValues] = useState();
-  const [listGames, setListGames] = useState();
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
@@ -15,23 +17,20 @@ export default function Login() {
   };
 
   const handleClickButton = () => {
-    Axios.post("http://localhost:3001/register", {
-      name: values.name,
-      cost: values.cost,
-      category: values.category
+
+    Axios.post("http://localhost:3001/login", {
+      email: values.email,
+      password: values.password,
     }).then((response) => {
       console.log(response);
+      if (response.data.login == true) {
+        alert("Usuario logado com sucesso!");
+        navigate('/home');
+      } else {
+        alert("Credenciais invalidas!");
+      }
     });
   };
-
-  useEffect(() => {
-    Axios.get("http://localhost:3001/getCards").then((response) => {
-      setListGames(response.data);
-      console.log(listGames);
-    });
-  }, []);
-
-  console.log(listGames);
 
   return (
     <div className='home--container'>
@@ -41,14 +40,14 @@ export default function Login() {
 
           <input
             type='text'
-            name='name'
+            name='email'
             placeholder='email'
             className='register--input'
             onChange={handleChangeValues}
           />
 
           <input
-            type='text'
+            type='password'
             name='password'
             placeholder='password'
             className='register--input'
@@ -56,8 +55,6 @@ export default function Login() {
           />  
 
           <button className='register--button' onClick={() => handleClickButton()} >Login</button>
-
-
 
         </div>
       </div>
