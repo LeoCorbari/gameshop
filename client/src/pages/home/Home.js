@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import './Home.css';
 import Axios from "axios";
 import Card from "../../components/cards/card";
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+
+  const navigate = useNavigate();
+
   const [values, setValues] = useState();
   const [listGames, setListGames] = useState();
 
@@ -30,6 +34,12 @@ function Home() {
       console.log(listGames);
     });
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    alert("Usuario deslogado!");
+    navigate("/");
+  };
 
   console.log(listGames);
 
@@ -63,6 +73,7 @@ function Home() {
           />
 
           <button className='register--button' onClick={() => handleClickButton()} >Send</button>
+          <a onClick={logout} >Wellcome {localStorage.getItem("user")} / Logout</a>
 
         </div>
       </div>

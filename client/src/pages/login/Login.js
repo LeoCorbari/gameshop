@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import './Login.css';
@@ -8,6 +8,12 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [values, setValues] = useState();
+
+  useEffect(() => {
+    if (localStorage.getItem("user") !== null) {
+      navigate("/home");
+    }
+  }, [navigate]);
 
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
@@ -22,9 +28,9 @@ export default function Login() {
       email: values.email,
       password: values.password,
     }).then((response) => {
-      console.log(response);
       if (response.data.login == true) {
         alert("Usuario logado com sucesso!");
+        localStorage.setItem('user', JSON.stringify(values.email));
         navigate('/home');
       } else {
         alert("Credenciais invalidas!");
