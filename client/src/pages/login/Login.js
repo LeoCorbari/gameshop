@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import './Login.css';
+import { validationLogin } from '../../validations/loginValidation';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+
 
 export default function Login() {
 
   const navigate = useNavigate();
-
-  const [values, setValues] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("user") !== null) {
@@ -15,14 +16,16 @@ export default function Login() {
     }
   }, [navigate]);
 
+/*
   const handleChangeValues = (value) => {
     setValues(prevValue => ({
       ...prevValue,
       [value.target.name]: value.target.value,
     }))
   };
+*/
 
-  const handleClickButton = () => {
+  const handleClickButton = (values) => {
 
     Axios.post("http://localhost:3001/login", {
       email: values.email,
@@ -43,24 +46,41 @@ export default function Login() {
         <div className='register--container'>
           <div className='logo'></div>
           <h1 className='register--title'>Game Shop</h1>
+          <Formik
+          initialValues={{}}
+          onSubmit={handleClickButton}
+          >
+            <Form>
+              <Field
+                type='text'
+                name='email'
+                placeholder='email'
+                className='register--input'
+                validationSchema={validationLogin}
+              />
 
-          <input
-            type='text'
-            name='email'
-            placeholder='email'
-            className='register--input'
-            onChange={handleChangeValues}
-          />
+              <ErrorMessage 
+                component="spam"
+                name="email"
+                className="form-error"
+              />
 
-          <input
-            type='password'
-            name='password'
-            placeholder='password'
-            className='register--input'
-            onChange={handleChangeValues}
-          />  
+              <Field
+                type='password'
+                name='password'
+                placeholder='password'
+                className='register--input'
+              />  
 
-          <button className='register--button' onClick={() => handleClickButton()} >Login</button>
+              <ErrorMessage 
+                component="spam"
+                name="password"
+                className="form-error"
+              />
+
+              <button className='register--button'>Login</button>
+            </Form>
+          </Formik>
 
         </div>
       </div>
