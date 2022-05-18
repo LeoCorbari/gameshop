@@ -1,36 +1,23 @@
 import React, { useState } from "react";
 import Axios from 'axios'
+import { Formik, Form, Field, ErrorMessage } from "formik";
 
 import "./modal.css";
+import { validationModal } from "../../validations/modalValidation";
+
 
 export default function Modal(props) {
 
-const [editValues, setEditValues] = useState({
-    id: props.id,
-    name: props.name,
-    cost: props.cost,
-    category: props.category
-});
+const handleEditGame = (values) => {
 
-const handleEditGame = () => {
-
-    console.log(editValues);
+    console.log(values);
 
     Axios.put("http://localhost:3001/edit", {
-        id: editValues.id,
-        name: editValues.name,
-        cost: editValues.cost,
-        category: editValues.category
+        id: props.id,
+        name: values.name,
+        cost: values.cost,
+        category: values.category
     });
-
-    handleClose();
-};
-
-const handleDeleteGame = () => {
-
-    console.log(editValues);
-
-    Axios.delete(`http://localhost:3001/delete/${editValues.id}`);
 
     handleClose();
 };
@@ -40,45 +27,65 @@ const handleClose = () => {
     
 };
 
-const handleChangeValues = (value) => {
-    setEditValues(prevValues => ({
-        ...prevValues,
-        [value.target.id]: value.target.value
-    }));
-};
 
     return <div className='modal'>
                 <div className='container--modal'>
 
                     <h1>{props.name}</h1>
-                    <input 
-                        type='text' 
-                        id='name' 
-                        placeholder='name'
-                        className='register--input'
-                        defaultValue={props.name}
-                        onChange={handleChangeValues}
-                        />
-                        <input 
-                        type='text' 
-                        id='cost' 
-                        placeholder='cost' 
-                        className='register--input'
-                        defaultValue={props.cost}
-                        onChange={handleChangeValues}
-                        />
-                        <input 
-                        type='text' 
-                        id='category' 
-                        placeholder='category' 
-                        defaultValue={props.category}
-                        className='register--input'
-                        onChange={handleChangeValues}
-                        />
-                        <div className='group--button' >
-                            <button className='register--button' onClick={handleEditGame}>Send</button>
-                            <button className='register--button' onClick={handleClose}>Cancel</button>
-                        </div>
+                    <Formik
+                    initialValues={{name: props.name, cost: props.cost, category: props.category}}
+                    onSubmit={handleEditGame}
+                    validationSchema={validationModal}
+                    >
+                        <Form>
+                            <Field 
+                            type='text'
+                            name='name'
+                            placeholder='name'
+                            className='register--input'
+                            defaultValue={props.name}
+                            />
+
+                            <ErrorMessage 
+                            component="spam"
+                            name="name"
+                            className="form-error"
+                            />
+
+                            <Field 
+                            type='text' 
+                            name='cost'
+                            placeholder='cost' 
+                            className='register--input'
+                            defaultValue={props.cost}
+                            />
+
+                            <ErrorMessage 
+                            component="spam"
+                            name="cost"
+                            className="form-error"
+                            />
+
+                            <Field 
+                            type='text' 
+                            name='category'
+                            placeholder='category' 
+                            defaultValue={props.category}
+                            className='register--input'
+                            />
+
+                            <ErrorMessage 
+                            component="spam"
+                            name="category"
+                            className="form-error"
+                            />
+
+                            <div className='group--button' >
+                                <button className='register--button'>Send</button>
+                                <button className='register--button' onClick={handleClose}>Cancel</button>
+                            </div>
+                            </Form>
+                        </Formik>
                         
                 </div>
             </div>
