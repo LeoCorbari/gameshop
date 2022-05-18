@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import Axios from 'axios';
 import './Login.css';
@@ -16,22 +16,13 @@ export default function Login() {
     }
   }, [navigate]);
 
-/*
-  const handleChangeValues = (value) => {
-    setValues(prevValue => ({
-      ...prevValue,
-      [value.target.name]: value.target.value,
-    }))
-  };
-*/
-
   const handleClickButton = (values) => {
 
     Axios.post("http://localhost:3001/login", {
       email: values.email,
       password: values.password,
     }).then((response) => {
-      if (response.data.login == true) {
+      if (response.data.login === true) {
         alert("Usuario logado com sucesso!");
         localStorage.setItem('user', JSON.stringify(values.email));
         navigate('/home');
@@ -49,14 +40,14 @@ export default function Login() {
           <Formik
           initialValues={{}}
           onSubmit={handleClickButton}
+          validationSchema={validationLogin}
           >
             <Form>
               <Field
                 type='text'
                 name='email'
                 placeholder='email'
-                className='register--input'
-                validationSchema={validationLogin}
+                className='register--input' 
               />
 
               <ErrorMessage 

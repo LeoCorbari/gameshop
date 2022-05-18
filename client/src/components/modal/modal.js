@@ -77,7 +77,7 @@ const handleChangeValues = (value) => {
                         />
                         <div className='group--button' >
                             <button className='register--button' onClick={handleEditGame}>Send</button>
-                            <button className='register--button' onClick={handleDeleteGame}>Cancel</button>
+                            <button className='register--button' onClick={handleClose}>Cancel</button>
                         </div>
                         
                 </div>

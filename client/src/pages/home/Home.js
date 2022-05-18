@@ -3,22 +3,16 @@ import './Home.css';
 import Axios from "axios";
 import Card from "../../components/cards/card";
 import { useNavigate } from 'react-router-dom';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { homeValidation } from '../../validations/homeValidation';
 
 function Home() {
 
   const navigate = useNavigate();
 
-  const [values, setValues] = useState();
   const [listGames, setListGames] = useState();
 
-  const handleChangeValues = (value) => {
-    setValues(prevValue => ({
-      ...prevValue,
-      [value.target.name]: value.target.value,
-    }))
-  };
-
-  const handleClickButton = () => {
+  const handleClickButton = (values) => {
     Axios.post("http://localhost:3001/register", {
       name: values.name,
       cost: values.cost,
@@ -31,7 +25,6 @@ function Home() {
   useEffect(() => {
     Axios.get("http://localhost:3001/getCards").then((response) => {
       setListGames(response.data);
-      console.log(listGames);
     });
   }, []);
 
@@ -41,39 +34,61 @@ function Home() {
     navigate("/");
   };
 
-  console.log(listGames);
-
   return (
     <div>
       <div className='home--container'>
         <div className='register--container'>
           <div className='logo'></div>
           <h1 className='register--title'>Game Shop</h1>
+          <Formik
+          initialValues={{}}
+          onSubmit={handleClickButton}
+          validationSchema={homeValidation}
+          >
+            <Form>
+              <Field
+                type='text'
+                name='name'
+                placeholder='name'
+                className='register--input'
+              />
 
-          <input
-            type='text'
-            name='name'
-            placeholder='name'
-            className='register--input'
-            onChange={handleChangeValues}
-          />
-          <input
-            type='text'
-            name='cost'
-            placeholder='cost'
-            className='register--input'
-            onChange={handleChangeValues}
-          />
-          <input
-            type='text'
-            name='category'
-            placeholder='category'
-            className='register--input'
-            onChange={handleChangeValues}
-          />
+              <ErrorMessage 
+                  component="spam"
+                  name="name"
+                  className="form-error"
+              />
 
-          <button className='register--button' onClick={() => handleClickButton()} >Send</button>
-          <a onClick={logout} >Wellcome {localStorage.getItem("user")} / Logout</a>
+              <Field
+                type='text'
+                name='cost'
+                placeholder='cost'
+                className='register--input'
+              />
+
+              <ErrorMessage 
+                  component="spam"
+                  name="cost"
+                  className="form-error"
+              />
+              
+              <Field
+                type='text'
+                name='category'
+                placeholder='category'
+                className='register--input'
+              />
+
+              <ErrorMessage 
+                  component="spam"
+                  name="category"
+                  className="form-error"
+              />
+
+              <button className='register--button'>Send</button>
+              <a onClick={logout} >Wellcome {localStorage.getItem("user")} / Logout</a>
+            </Form>
+          </Formik>
 
         </div>
       </div>

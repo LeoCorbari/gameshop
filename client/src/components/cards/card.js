@@ -1,12 +1,19 @@
 import  React, {useState} from "react";
 import "./card.css";
+import Axios from "axios";
 
 import Modal from "../modal/modal";
+
 
 export default function Card(props) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     console.log(isModalVisible);
+
+    const handleDeleteGame = () => {  
+
+        Axios.delete(`http://localhost:3001/delete/${props.id}`);
+    };
 
     const handleClickCard = () => {
         setIsModalVisible(true);
@@ -29,7 +36,7 @@ export default function Card(props) {
                     id={props.id}
                     />: null}
                     <button className='register--button' onClick={handleClickCard} >Edit</button>
-                    <button className='register--button'>Exclude</button>
+                    <button className='register--button' onClick={handleDeleteGame}>Exclude</button>
                 </div>
             
         </div>

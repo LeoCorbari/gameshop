@@ -98,7 +98,7 @@ input {
 
 button {
     color: white;
-    margin-top: 20px;
+    margin-top: 30px;
     background: #e06666;
     height: 40px;
     border-radius: 20px;
@@ -110,4 +110,13 @@ button {
 
 button:hover {
     box-shadow: none;
+}
+
+.form-error {
+    font-size: small;
+    display: block;
+    position: absolute;
+    text-align: initial;
+    margin-left: 20px;
+    color: #e06666;
 }

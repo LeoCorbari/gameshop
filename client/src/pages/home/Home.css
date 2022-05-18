@@ -122,3 +122,12 @@ a {
     border-radius: 10px;
     padding: 2px;
 }
+
+.form-error {
+    font-size: small;
+    display: block;
+    position: absolute;
+    text-align: initial;
+    margin-left: 20px;
+    color: #e06666;
+}
