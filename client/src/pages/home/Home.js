@@ -18,14 +18,20 @@ function Home() {
       cost: values.cost,
       category: values.category
     }).then((response) => {
-      console.log(response);
+      updateList();
+      
+    });
+    
+  };
+
+  const updateList = () =>{
+    Axios.get("http://localhost:3001/getCards").then((response) => {
+      setListGames(response.data);
     });
   };
 
   useEffect(() => {
-    Axios.get("http://localhost:3001/getCards").then((response) => {
-      setListGames(response.data);
-    });
+    updateList();
   }, []);
 
   const logout = () => {
@@ -85,8 +91,8 @@ function Home() {
                   className="form-error"
               />
 
-              <button className='register--button'>Send</button>
-              <a onClick={logout} >Wellcome {localStorage.getItem("user")} / Logout</a>
+              <button type='submit' className='register--button'>Send</button>
+              <p className='username--group' onClick={logout} >Wellcome {localStorage.getItem("user")} / Logout</p>
             </Form>
           </Formik>
 
@@ -98,6 +104,7 @@ function Home() {
             key={value.id}
             listCard={listGames}
             setListCard={setListGames}
+            updateList={updateList}
             id={value.idgame}
             name={value.name}
             cost={value.cost}

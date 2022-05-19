@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Axios from 'axios'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
@@ -17,6 +17,8 @@ const handleEditGame = (values) => {
         name: values.name,
         cost: values.cost,
         category: values.category
+    }).then((response) => {
+        props.updateList();
     });
 
     handleClose();

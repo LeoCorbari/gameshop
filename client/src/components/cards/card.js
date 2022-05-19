@@ -8,11 +8,11 @@ import Modal from "../modal/modal";
 export default function Card(props) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-    console.log(isModalVisible);
 
     const handleDeleteGame = () => {  
-
-        Axios.delete(`http://localhost:3001/delete/${props.id}`);
+        Axios.delete(`http://localhost:3001/delete/${props.id}`).then((response) => {
+            props.updateList();
+        });
     };
 
     const handleClickCard = () => {
@@ -27,7 +27,8 @@ export default function Card(props) {
                 <div className='btn--group'>
                     {isModalVisible ? <Modal 
                     isModalVisible={isModalVisible}
-                    setIsModalVisible={setIsModalVisible}  
+                    setIsModalVisible={setIsModalVisible}
+                    updateList={props.updateList}
                     name={props.name}
                     cost={props.cost}
                     category={props.category}

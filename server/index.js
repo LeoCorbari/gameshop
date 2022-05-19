@@ -45,8 +45,9 @@ app.post('/register', (req, res) => {
 
     let sql = "INSERT INTO games (name, cost, category) VALUES ( ?, ?, ?)";
 
-    db.query(sql, [name, cost, category], (err, res) => {
-        console.log(err);
+    db.query(sql, [name, cost, category], (err, result) => {
+        if (err) console.log(err);
+        else res.send(result);
     });
 });
 

@@ -111,14 +111,13 @@ button:hover {
     box-shadow: none;
 }
 
-a {
+.username--group {
     position: absolute;
-    font-size: 8px;
+    font-size: 12px;
     bottom: 4px;
     right: 4px;
     text-decoration: none;
     color: black;
-    background: yellow;
     border-radius: 10px;
     padding: 2px;
 }
