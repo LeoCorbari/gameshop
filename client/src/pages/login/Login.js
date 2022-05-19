@@ -69,7 +69,7 @@ export default function Login() {
                 className="form-error"
               />
 
-              <button className='register--button'>Login</button>
+              <button type='submit' className='register--button'>Login</button>
             </Form>
           </Formik>
 
